@@ -1,0 +1,8 @@
+node_modules/
+.env
+.opencode/cache/
+runs/
+*.log
+# data/nango.yaml is committed: the eval oracle must be reproducible
+.env.production
+*.pem
