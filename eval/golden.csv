@@ -1,0 +1,21 @@
+platform,expected_scheme,expected_path,coarse,source,note
+linear.app,DCR_OAUTH,dcr,machine,https://mcp.linear.app/.well-known/oauth-authorization-server,registration_endpoint present and returns credentials
+notion.so,DCR_OAUTH,dcr,machine,https://mcp.notion.com/.well-known/oauth-authorization-server,MCP host differs from product TLD
+stripe.com,DCR_OAUTH,dcr,machine,https://access.stripe.com/mcp/oauth2/register,also ships API_KEY as alternative
+asana.com,DCR_OAUTH,form,human,https://mcp.asana.com/register,DCR endpoint exists but allowlists redirect URIs; registering Composio's callback returns invalid_redirect_uri
+canva.com,DCR_OAUTH,dcr,machine,https://mcp.canva.com/.well-known/oauth-authorization-server,
+paypal.com,DCR_OAUTH,dcr,machine,https://mcp.paypal.com/.well-known/oauth-authorization-server,payments platform that still allows DCR
+atlassian.com,DCR_OAUTH,dcr,machine,https://mcp.atlassian.com/v1/register,
+monday.com,DCR_OAUTH,dcr,machine,https://auth.monday.com/oauth_ms/oauth/register,registration lives on the auth subdomain
+webflow.com,DCR_OAUTH,dcr,machine,https://mcp.webflow.com/oauth/register,
+sentry.io,DCR_OAUTH,dcr,machine,https://mcp.sentry.dev/oauth/register,MCP host is a different domain entirely
+openai.com,API_KEY,none_needed,none,https://platform.openai.com/docs/api-reference/authentication,user-supplied key; no developer app exists
+sendgrid.com,API_KEY,none_needed,none,https://www.twilio.com/docs/sendgrid/api-reference,
+twilio.com,BASIC,none_needed,none,https://www.twilio.com/docs/usage/api,account sid + auth token is basic auth
+github.com,OAUTH2,self_serve,human,https://github.com/settings/developers,anyone with an account can register an OAuth app
+slack.com,OAUTH2,self_serve,human,https://api.slack.com/apps,free self-serve app creation
+shopify.com,OAUTH2,self_serve,human,https://partners.shopify.com,requires a free Partners account
+xero.com,OAUTH2,self_serve,human,https://developer.xero.com/app/manage,free developer account then app registration
+hubspot.com,OAUTH2,self_serve,human,https://developers.hubspot.com,developer account required
+twitter.com,OAUTH2,form,human,https://developer.x.com/en/portal/petition/essential/basic-info,access application plus paid tiers
+servicenow.com,OAUTH2,form,human,https://docs.servicenow.com,per-tenant: the app is registered inside each customer instance
