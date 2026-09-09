@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'SFMono-Regular', 'Cascadia Code', 'Roboto Mono', Consolas, ui-monospace, monospace;
+
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+
+    /* ChatGPT-inspired neutral surface and ink hierarchy. */
+    --color-border-strong: var(--border-strong);
+    --color-surface-active: var(--surface-active);
+    --color-composer: var(--composer);
+    --color-ink-secondary: var(--ink-secondary);
+    --color-ok: #5ec98b;
+    --color-info: #66aaf9;
+    --color-warn: #e2b340;
+    --color-bad: #ff6b7a;
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --shadow-card: var(--app-shadow);
+}
+
+/* Neutral black palette sampled from the supplied ChatGPT reference. */
+:root,
+.dark {
+    --radius: 0.75rem;
+    --surface-active: #1a1a1a;
+    --composer: #212121;
+    --ink-secondary: #b4b4b4;
+    --app-shadow: 0 1px 2px rgba(0, 0, 0, .32);
+    --background: #000000;
+    --foreground: #f4f4f4;
+    --card: #171717;
+    --card-foreground: #f4f4f4;
+    --popover: #212121;
+    --popover-foreground: #f4f4f4;
+    --primary: #f4f4f4;
+    --primary-foreground: #0d0d0d;
+    --secondary: #212121;
+    --secondary-foreground: #f4f4f4;
+    --muted: #212121;
+    --muted-foreground: #8f8f8f;
+    --accent: #2f2f2f;
+    --accent-foreground: #f4f4f4;
+    --destructive: #ff6b7a;
+    --border: #242424;
+    --border-strong: #424242;
+    --input: #424242;
+    --ring: #d1d1d1;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: dark;
+    background: var(--background);
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.006em;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--ring) 30%, transparent);
+  }
+  /* Machine values are always monospace. Set directly rather than via @apply:
+     the utility lost to component classes that declare their own family. */
+  code, pre, kbd, samp, .mono, .font-mono {
+    font-family: var(--font-mono) !important;
+  }
+}
+
+/* Thin scrollbars so dense panels do not shout. */
+@layer utilities {
+  /* Tailwind disables controls with opacity, which on a saturated primary
+     produces a washed lavender rather than a muted control. Declared in
+     utilities because the base layer loses to the component's own bg utility. */
+  button:disabled,
+  button[disabled] {
+    background-color: #424242 !important;
+    color: #8f8f8f !important;
+    border-color: #424242 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+  }
+
+  .thin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #424242 transparent;
+  }
+  .thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .thin-scroll::-webkit-scrollbar-thumb {
+    background: #424242;
+    border-radius: 8px;
+  }
+  .thin-scroll::-webkit-scrollbar-track { background: transparent; }
+  /* Creates a containing block so the multi-step loader's fixed overlay is
+     scoped to this element instead of covering the whole page. */
+  .contain-fixed { transform: translateZ(0); }
+}
