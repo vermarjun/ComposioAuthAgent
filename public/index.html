@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auth Acquisition Agent</title>
+<style>
+  :root{
+    --bg:#0b0d10; --panel:#12151a; --panel2:#171b21; --line:#242a33;
+    --fg:#e6e9ee; --dim:#8b95a5; --faint:#5d6675;
+    --acc:#5eead4; --warn:#fbbf24; --bad:#f87171; --good:#4ade80; --info:#93c5fd;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+  a{color:var(--info)}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 80px}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  h1{font-size:21px;margin:0;letter-spacing:-.02em}
+  .sub{color:var(--dim);font-size:13.5px;margin:0 0 26px}
+  .grid{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  label{display:block;font-size:12px;color:var(--dim);margin:12px 0 5px;
+        text-transform:uppercase;letter-spacing:.06em}
+  input,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);
+        color:var(--fg);border-radius:8px;padding:9px 11px;font:14px/1.4 inherit}
+  input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+  textarea{resize:vertical;min-height:56px}
+  button{background:var(--acc);color:#07211d;border:0;border-radius:8px;padding:11px 16px;
+        font:600 14px/1 inherit;cursor:pointer;width:100%;margin-top:18px}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);
+        width:auto;padding:6px 11px;font-size:12px;margin:0}
+  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+  .chip{background:var(--panel2);border:1px solid var(--line);color:var(--dim);
+        border-radius:999px;padding:5px 11px;font-size:12px;cursor:pointer}
+  .chip:hover{border-color:var(--acc);color:var(--fg)}
+  .chip b{color:var(--fg);font-weight:600}
+  details{margin-top:14px}
+  summary{cursor:pointer;color:var(--dim);font-size:12.5px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"▸ ";color:var(--faint)}
+  details[open] summary:before{content:"▾ "}
+  .empty{color:var(--faint);text-align:center;padding:60px 20px;font-size:14px}
+  .log{font:12px/1.65 var(--mono);max-height:260px;overflow:auto;
+       background:#0e1116;border:1px solid var(--line);border-radius:8px;padding:11px}
+  .log div{white-space:pre-wrap;word-break:break-word}
+  .k{color:var(--faint);margin-right:8px}
+  .banner{display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+       border-radius:10px;padding:14px 16px;margin-bottom:16px;border:1px solid}
+  .b-good{background:#0d1f18;border-color:#1d503c}
+  .b-info{background:#101a24;border-color:#25405c}
+  .b-warn{background:#241d0e;border-color:#5c4a1c}
+  .b-bad{background:#241214;border-color:#5c2427}
+  .badge{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+       padding:5px 8px;border-radius:5px;background:#00000040}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);
+     margin:24px 0 9px;font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  td{padding:6px 0;vertical-align:top;border-bottom:1px solid #1b1f26}
+  td:first-child{color:var(--dim);width:200px;padding-right:14px}
+  pre{background:#0e1116;border:1px solid var(--line);border-radius:8px;padding:13px;
+      overflow:auto;font:12.5px/1.6 var(--mono);margin:0}
+  .secret{font:13px/1.5 var(--mono);background:#0e1116;border:1px solid var(--line);
+      border-radius:7px;padding:9px 11px;display:flex;justify-content:space-between;
+      gap:10px;align-items:center;margin-bottom:7px;word-break:break-all}
+  .secret span:first-child{color:var(--dim);font-size:11px;text-transform:uppercase;
+      letter-spacing:.06em;flex:0 0 108px}
+  .secret code{color:var(--acc);flex:1}
+  ul.ev{list-style:none;padding:0;margin:0;font:12px/1.8 var(--mono)}
+  ul.ev li{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .shots{display:flex;gap:10px;flex-wrap:wrap}
+  .shots img{max-width:260px;border:1px solid var(--line);border-radius:8px}
+  .spin{display:inline-block;width:11px;height:11px;border:2px solid var(--faint);
+      border-top-color:var(--acc);border-radius:50%;animation:s .7s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .foot{color:var(--faint);font-size:12px;margin-top:30px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Auth Acquisition Agent</h1>
+    <span class="badge" style="color:var(--dim)">agent #2 · composio connector pipeline</span>
+  </header>
+  <p class="sub">
+    Give it a platform. It works out how a third party obtains a credential that can act for a user,
+    then gets that credential — or tells you exactly what stops it.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <label for="platform">Platform</label>
+      <input id="platform" placeholder="Linear, notion.so, Xero…" autocomplete="off">
+      <div class="chips">
+        <span class="chip" data-p="linear.app"><b>Linear</b> · mints a real secret</span>
+        <span class="chip" data-p="stripe.com"><b>Stripe</b> · no app needed</span>
+        <span class="chip" data-p="xero.com"><b>Xero</b> · gated</span>
+      </div>
+
+      <details>
+        <summary>Optional hints &amp; applicant details</summary>
+        <label for="homepage">Homepage</label>
+        <input id="homepage" placeholder="https://linear.app">
+        <label for="docs">Developer docs URL</label>
+        <input id="docs" placeholder="https://developers.linear.app">
+        <label for="notes">Notes for the agent</label>
+        <textarea id="notes" placeholder="e.g. we need write access to issues"></textarea>
+        <label for="appname">Application name</label>
+        <input id="appname" placeholder="Composio">
+        <label for="email">Contact email</label>
+        <input id="email" placeholder="support@composio.dev">
+        <label for="redirect">Redirect / callback URI</label>
+        <input id="redirect" placeholder="https://backend.composio.dev/api/v1/auth-apps/add">
+      </details>
+
+      <button id="go">Acquire credentials</button>
+      <div id="health" class="foot"></div>
+    </div>
+
+    <div id="panel" class="card">
+      <div class="empty">No run yet. Pick a platform and press the button.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s)
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))
+let timer = null
+
+document.querySelectorAll(".chip").forEach(c =>
+  c.onclick = () => { $("#platform").value = c.dataset.p; $("#go").click() })
+
+$("#platform").addEventListener("keydown", e => { if (e.key === "Enter") $("#go").click() })
+
+fetch("/api/health").then(r => r.json()).then(h => {
+  const on = Object.entries(h.integrations).filter(([,v]) => v).map(([k]) => k)
+  $("#health").innerHTML =
+    `model <b>${esc(h.model.providerID)}/${esc(h.model.modelID)}</b> · storage ${esc(h.storage)} · browser ${esc(h.browser_provider)}`
+    + `<br>integrations: ${on.length ? on.join(", ") : "none configured"}`
+    + (h.auto_submit ? "" : " · form auto-submit off (drafts only)")
+}).catch(() => {})
+
+$("#go").onclick = async () => {
+  const platform = $("#platform").value.trim()
+  if (!platform) return
+  $("#go").disabled = true
+  clearInterval(timer)
+  $("#panel").innerHTML = `<div class="empty"><span class="spin"></span> starting run…</div>`
+
+  const body = {
+    platform,
+    homepage: $("#homepage").value.trim() || undefined,
+    docs_url: $("#docs").value.trim() || undefined,
+    notes: $("#notes").value.trim() || undefined,
+    applicant: {
+      app_name: $("#appname").value.trim() || undefined,
+      contact_email: $("#email").value.trim() || undefined,
+      redirect_uri: $("#redirect").value.trim() || undefined,
+    },
+  }
+  const r = await fetch("/api/runs", {
+    method: "POST", headers: {"content-type":"application/json"}, body: JSON.stringify(body)
+  }).then(r => r.json())
+
+  if (!r.run_id) {
+    $("#panel").innerHTML = `<div class="banner b-bad"><b>Could not start</b></div><pre>${esc(JSON.stringify(r,null,2))}</pre>`
+    $("#go").disabled = false
+    return
+  }
+  poll(r.run_id)
+}
+
+function poll(id) {
+  const tick = async () => {
+    const run = await fetch("/api/runs/" + id).then(r => r.json()).catch(() => null)
+    if (!run) return
+    render(run)
+    if (run.status === "done" || run.status === "error") {
+      clearInterval(timer); $("#go").disabled = false
+    }
+  }
+  tick(); timer = setInterval(tick, 2500)
+}
+
+const BANNER = {
+  credentials_obtained: ["b-good", "Credentials obtained"],
+  no_app_required:      ["b-info", "No developer app required"],
+  draft_ready:          ["b-warn", "Form drafted — needs a human"],
+  outreach_queued:      ["b-warn", "Outreach drafted — needs a human"],
+  blocked:              ["b-bad",  "Blocked"],
+}
+
+function render(run) {
+  const p = run.packet
+  let h = ""
+
+  if (!p) {
+    const cls = run.status === "error" ? "b-bad" : "b-info"
+    h += `<div class="banner ${cls}">
+      ${run.status === "error" ? "" : '<span class="spin"></span>'}
+      <b>${esc(run.platform)}</b>
+      <span class="badge">${esc(run.status)}</span>
+      ${run.error ? `<span style="color:var(--bad)">${esc(run.error)}</span>` : ""}
+    </div>`
+  } else {
+    const [cls, title] = BANNER[p.acquisition.status] ?? ["b-info", p.acquisition.status]
+    h += `<div class="banner ${cls}">
+      <b>${esc(p.platform)}</b>
+      <span class="badge">${esc(title)}</span>
+      <span class="badge">path: ${esc(p.acquisition.path)}</span>
+      <span class="badge">${esc(p.auth.scheme)}</span>
+      ${p.oracles?.agreement ? `<span class="badge">oracles: ${esc(p.oracles.agreement)}</span>` : ""}
+    </div>`
+  }
+
+  if (run.from_cache) {
+    h += `<div class="banner b-warn"><span class="badge">cached</span>
+      <span>The model was unavailable for this attempt, so nothing was re-acquired.
+      Showing the packet from run <code>${esc(run.from_cache.run_id)}</code>
+      (${esc(String(run.from_cache.at).slice(0,19).replace("T"," "))}).</span></div>`
+  }
+
+  if (run.live_view_url) {
+    h += `<p style="margin:0 0 14px"><a href="${esc(run.live_view_url)}" target="_blank">▶ Watch the browser live</a>
+          <span style="color:var(--faint);font-size:12px"> — AgentCore session, opens in the AWS console</span></p>`
+  }
+
+  h += `<h2>Activity</h2><div class="log" id="log">` +
+    (run.log ?? []).slice(-120).map(l =>
+      `<div><span class="k">${esc(l.at.slice(11,19))}</span><span class="k">${esc(l.kind)}</span>${esc(l.text)}</div>`
+    ).join("") + `</div>`
+
+  if (p) {
+    const c = p.composio_auth_config?.credentials
+    if (c && (c.client_id || c.client_secret)) {
+      h += `<h2>Credentials</h2>`
+      for (const [k, v] of Object.entries(c)) {
+        if (!v) continue
+        const secret = /secret|token|password/i.test(k)
+        h += `<div class="secret"><span>${esc(k)}</span><code data-full="${esc(v)}">${
+          secret ? "•".repeat(Math.min(String(v).length, 28)) : esc(v)
+        }</code>${secret ? `<button class="ghost reveal">reveal</button>` : ""}</div>`
+      }
+    }
+
+    if (p.acquisition.status === "blocked" || p.acquisition.human_action_required) {
+      h += `<h2>What a human must do</h2><table>`
+      if (p.acquisition.blocked_reason)
+        h += `<tr><td>reason</td><td><code>${esc(p.acquisition.blocked_reason)}</code></td></tr>`
+      h += `<tr><td>action</td><td>${esc(p.acquisition.human_action_required ?? "—")}</td></tr>`
+      if (p.resolved.registration_url)
+        h += `<tr><td>where</td><td><a href="${esc(p.resolved.registration_url)}" target="_blank">${esc(p.resolved.registration_url)}</a></td></tr>`
+      h += `</table>`
+    }
+
+    if (p.acquisition.form_draft && Object.keys(p.acquisition.form_draft).length) {
+      h += `<h2>Form draft</h2><table>` + Object.entries(p.acquisition.form_draft)
+        .map(([k,v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("") + `</table>`
+    }
+
+    if (p.acquisition.outreach_draft) {
+      const o = p.acquisition.outreach_draft
+      h += `<h2>Outreach draft (not sent)</h2><table>
+        <tr><td>to</td><td>${esc(o.to ?? "—")}</td></tr>
+        <tr><td>subject</td><td>${esc(o.subject)}</td></tr></table>
+        <pre style="margin-top:9px">${esc(o.body)}</pre>`
+    }
+
+    if (p.acquisition.screenshots?.length) {
+      h += `<h2>Screenshots</h2><div class="shots">` +
+        p.acquisition.screenshots.map(s => `<a href="${esc(s)}" target="_blank"><img src="${esc(s)}"></a>`).join("") +
+        `</div>`
+    }
+
+    h += `<h2>Auth</h2><table>
+      <tr><td>scheme</td><td><code>${esc(p.auth.scheme)}</code>${
+        p.auth.alternatives?.length ? ` <span style="color:var(--faint)">also: ${esc(p.auth.alternatives.join(", "))}</span>` : ""
+      }</td></tr>
+      ${row("authorization endpoint", p.auth.authorization_endpoint)}
+      ${row("token endpoint", p.auth.token_endpoint)}
+      ${row("registration endpoint", p.auth.registration_endpoint)}
+      ${p.auth.scopes_requested?.length ? `<tr><td>scopes</td><td><code>${esc(p.auth.scopes_requested.join(" "))}</code></td></tr>` : ""}
+      ${p.auth.connect_time_fields?.length ? `<tr><td>connect-time fields</td><td><code>${esc(p.auth.connect_time_fields.join(", "))}</code></td></tr>` : ""}
+    </table>`
+
+    if (p.verification?.result) {
+      h += `<h2>Verification</h2><table>
+        <tr><td>method</td><td>${esc(p.verification.method ?? "—")}</td></tr>
+        <tr><td>result</td><td style="color:${p.verification.invalid_client ? "var(--bad)" : "var(--good)"}">${esc(p.verification.result)}</td></tr>
+      </table>`
+    }
+
+    h += `<h2>Cross-checks</h2><table>
+      ${row("composio catalog", p.oracles?.composio_scheme)}
+      ${row("nango registry", p.oracles?.nango_auth_mode)}
+      <tr><td>agreement</td><td><code>${esc(p.oracles?.agreement ?? "—")}</code></td></tr>
+      <tr><td>agent confidence</td><td>${esc(p.confidence)}</td></tr>
+      ${p.resolved.already_in_composio ? `<tr><td>already shipped</td><td>${esc(p.resolved.composio_slug)}${p.resolved.composio_managed ? " (OAuth already managed by Composio)" : ""}</td></tr>` : ""}
+    </table>`
+
+    if (p.composio_auth_config) {
+      h += `<h2>Payload for agent #3 <button class="ghost" id="copy">copy</button></h2>
+        <pre id="cfg">${esc(JSON.stringify(p.composio_auth_config, null, 2))}</pre>`
+    }
+
+    if (p.notes) h += `<h2>Notes</h2><p style="color:var(--dim);font-size:13.5px;margin:0">${esc(p.notes)}</p>`
+
+    h += `<h2>Evidence · ${p.evidence.length} URLs actually fetched</h2><ul class="ev">` +
+      p.evidence.map(u => `<li><a href="${esc(u)}" target="_blank">${esc(u)}</a></li>`).join("") + `</ul>`
+  }
+
+  $("#panel").innerHTML = h
+  const log = $("#log"); if (log) log.scrollTop = log.scrollHeight
+  document.querySelectorAll(".reveal").forEach(b => b.onclick = () => {
+    const code = b.previousElementSibling
+    code.textContent = code.dataset.full; b.remove()
+  })
+  const copy = $("#copy")
+  if (copy) copy.onclick = () => {
+    navigator.clipboard.writeText($("#cfg").textContent)
+    copy.textContent = "copied"; setTimeout(() => copy.textContent = "copy", 1200)
+  }
+}
+
+const row = (label, v) => v ? `<tr><td>${esc(label)}</td><td><code>${esc(v)}</code></td></tr>` : ""
+</script>
+</body>
+</html>
