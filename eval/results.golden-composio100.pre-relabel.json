@@ -1,0 +1,1583 @@
+{
+  "api": "http://127.0.0.1:8080",
+  "at": "2026-09-08T23:38:16.103Z",
+  "scored": 19,
+  "schemeHit": 10,
+  "pathHit": 5,
+  "coarseHit": 10,
+  "verified": 14,
+  "agree": 10,
+  "disagree": 5,
+  "results": [
+    {
+      "row": {
+        "platform": "Attio",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "self_serve",
+        "coarse": "human",
+        "source": "https://docs.attio.com/rest-api/guides/authentication",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "8d7f7525f512",
+        "platform": "attio",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": true
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://app.attio.com/oidc/authorize",
+          "token_endpoint": "https://app.attio.com/oidc/token",
+          "registration_endpoint": "https://app.attio.com/oauth/register",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes": "openid offline_access"
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "credentials_obtained",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "attio",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "client_id": "REDACTED",
+            "client_secret": "REDACTED",
+            "scopes": "openid offline_access"
+          }
+        },
+        "verification": {
+          "method": "authorize_endpoint_probe",
+          "result": "inconclusive: HTTP 400; authorize endpoint accepted the client and returned invalid_client=false",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://backend.composio.dev/api/v3/toolkits/attio",
+          "https://mcp.attio.com/.well-known/oauth-protected-resource",
+          "https://app.attio.com/.well-known/oauth-authorization-server",
+          "https://app.attio.com/oauth/register"
+        ],
+        "confidence": 0.95,
+        "notes": null,
+        "created_at": "2026-09-08T23:16:18.324Z",
+        "completed_at": "2026-09-08T23:16:49.672Z",
+        "alternatives": [
+          {
+            "scheme": "OAUTH2",
+            "note": "Attio OAuth2 is also represented in the Composio and Nango registries."
+          }
+        ]
+      },
+      "seconds": 32
+    },
+    {
+      "row": {
+        "platform": "Copper",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "relationship",
+        "coarse": "human",
+        "source": "https://developer.copper.com/introduction/oauth/flow.html",
+        "note\r": "\"prior-survey label: access=approval_required, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "b4823c046b80",
+        "platform": "Copper",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "catalog_status": "not_in_composio_catalog",
+          "nango": {
+            "slug": "copper",
+            "auth_mode": "OAUTH2"
+          }
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://app.copper.com/oauth/authorize",
+          "token_endpoint": "https://app.copper.com/oauth/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scope": "developer/v1/all"
+        },
+        "acquisition": {
+          "path": "form",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "An operator must provide or create a Copper account identity, then open https://developer.copper.com/introduction/oauth/index.html and contact Copper to register the Composio OAuth application. Submit the application name, purpose, HTTPS callback https://backend.composio.dev/api/v1/auth-apps/add, homepage, privacy policy, and contact email listed below. Copper must issue client_id and client_secret before the OAuth connector can be configured.",
+          "form_draft": null,
+          "outreach_draft": {
+            "route": "Copper OAuth registration instructions at https://developer.copper.com/introduction/oauth/index.html; the page says to contact Copper to register an application",
+            "subject": "OAuth application registration for Composio",
+            "body": "Hello Copper team,\n\nWe'd like to register an OAuth 2.0 application for Composio, which gives AI agents authenticated access to SaaS tools on behalf of end users.\n\nApplication name: Composio\nHomepage: https://composio.dev\nPrivacy policy: https://composio.dev/privacy\nCallback URL: https://backend.composio.dev/api/v1/auth-apps/add\nContact: support@composio.dev\n\nPlease provide the client_id and client_secret, and let us know if you need any additional information.\n\nThank you."
+          },
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "copper",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "scopes": "developer/v1/all"
+          }
+        },
+        "verification": {
+          "method": "not_run",
+          "result": "Blocked before client registration; Copper documentation states application registration requires contacting Copper and no operator account was available.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "agree"
+        },
+        "evidence": [
+          {
+            "url": "https://developer.copper.com/introduction/oauth/index.html",
+            "claim": "Copper OAuth2 documentation says applications must first be registered by contacting Copper, requires an application name, purpose, and HTTPS callback, and supports scope developer/v1/all."
+          },
+          {
+            "url": "https://developer.copper.com/introduction/oauth/flow.html",
+            "claim": "Copper OAuth flow documents the authorization and token endpoints and states registration returns client_id and client_secret."
+          },
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.94,
+        "notes": null,
+        "created_at": "2026-09-08T23:16:18.324Z",
+        "completed_at": "2026-09-08T23:18:47.878Z",
+        "alternatives": [
+          {
+            "scheme": "API_KEY",
+            "note": "Copper also documents legacy API keys, but OAuth2 is the appropriate third-party user-delegated scheme."
+          }
+        ]
+      },
+      "seconds": 152
+    },
+    {
+      "row": {
+        "platform": "Freshdesk",
+        "expected_scheme": "API_KEY",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://developers.freshdesk.com/api/",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "83fed93d77f2",
+        "platform": "freshdesk",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "credential_model": "Freshdesk uses a per-agent/account API key; no OAuth developer app or client secret is required."
+        },
+        "auth": {
+          "scheme": "API_KEY",
+          "alternatives": [
+            {
+              "scheme": "BASIC",
+              "note": "Freshdesk API requests are commonly represented as Basic auth using the API key as the username and a dummy password."
+            }
+          ],
+          "authorization_endpoint": null,
+          "token_endpoint": null,
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": []
+        },
+        "acquisition": {
+          "path": "none_needed",
+          "status": "no_app_required",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "freshdesk",
+          "auth_scheme": "API_KEY",
+          "credentials": {}
+        },
+        "verification": {
+          "method": "catalog_and_auth_discovery",
+          "result": "Composio catalog identifies API_KEY authentication with connect-time fields subdomain and generic_api_key; OAuth metadata discovery found no authorization, token, or dynamic-registration endpoint.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "API_KEY",
+          "nango_auth_mode": "BASIC",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://nango.dev/docs/api-integrations/freshdesk",
+          "https://backend.composio.dev/api/v3/toolkits/freshdesk"
+        ],
+        "confidence": 0.97,
+        "notes": null,
+        "created_at": "2026-09-08T23:16:50.404Z",
+        "completed_at": "2026-09-08T23:17:10.207Z",
+        "human_action_required": "The end user must open their Freshdesk account, go to Profile settings, copy the API key, and provide it together with their Freshdesk subdomain."
+      },
+      "seconds": 20
+    },
+    {
+      "row": {
+        "platform": "Gladly",
+        "expected_scheme": "BASIC",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://developer.gladly.com/rest/",
+        "note\r": "\"prior-survey label: access=approval_required, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "74f187d9bd6c",
+        "platform": "Gladly",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "catalog_found": false,
+          "nango_registry_found": false
+        },
+        "auth": {
+          "scheme": "BASIC",
+          "alternatives": [],
+          "authorization_endpoint": null,
+          "token_endpoint": null,
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "authentication": "HTTP Basic Auth using a Gladly organization/user email as the username and a Gladly API token as the password"
+        },
+        "acquisition": {
+          "path": "none_needed",
+          "status": "no_app_required",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "gladly",
+          "auth_scheme": "BASIC",
+          "credentials": {
+            "username": "<Gladly organization user email>",
+            "api_token": "<Gladly API token>"
+          }
+        },
+        "verification": {
+          "method": "metadata_and_documentation_check",
+          "result": "No OAuth authorization, token, or dynamic-registration endpoints were discovered. Gladly REST documentation specifies BasicAuth with user@organization.com and an API token.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "BASIC",
+          "nango_auth_mode": "not_found",
+          "agreement": "agree"
+        },
+        "evidence": [
+          {
+            "url": "https://developer.gladly.com/rest/",
+            "claim": "Gladly REST API documentation states authentication uses BasicAuth and shows curl -u user@organization.com:$GLADLY_API_TOKEN."
+          },
+          {
+            "url": "https://developer.gladly.com/rest/",
+            "claim": "Gladly REST API documentation was the identified official developer documentation source."
+          },
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.96,
+        "notes": null,
+        "created_at": "2026-09-08T23:17:10.451Z",
+        "completed_at": "2026-09-08T23:19:11.251Z",
+        "human_action_required": "A Gladly organization administrator must provide the Gladly user email and API token, following the authentication/API-token instructions at https://developer.gladly.com/rest/. No developer app or client secret is required."
+      },
+      "seconds": 124
+    },
+    {
+      "row": {
+        "platform": "Discord",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "self_serve",
+        "coarse": "human",
+        "source": "https://docs.discord.com/developers/topics/oauth2",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "7a6f15a9f647",
+        "platform": "discord.com",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": true
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://discord.com/api/oauth2/authorize",
+          "token_endpoint": "https://discord.com/api/oauth2/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": []
+        },
+        "acquisition": {
+          "path": "self_serve",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "Provision or provide an operator Discord account, then sign in at https://discord.com/developers/applications, create a new application named Composio, set the OAuth2 redirect URI to https://backend.composio.dev/api/v1/auth-apps/add, and retrieve the client ID and client secret from the application\u2019s OAuth2 settings.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "discord",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "scopes": "identify email"
+          }
+        },
+        "verification": {
+          "method": "operator_account_check",
+          "result": "No stored Discord operator account exists; account creation is prohibited by the run instructions, so registration could not be attempted.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://docs.discord.com/developers/topics/oauth2",
+          "https://discord.com/developers/applications",
+          "https://nango.dev/docs/api-integrations/discord/how-to-register-your-own-discord-api-oauth-app",
+          "https://backend.composio.dev/api/v3/toolkits/discord",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.98,
+        "notes": null,
+        "created_at": "2026-09-08T23:18:50.699Z",
+        "completed_at": "2026-09-08T23:20:11.442Z"
+      },
+      "seconds": 84
+    },
+    {
+      "row": {
+        "platform": "Aircall",
+        "expected_scheme": "BASIC",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://aircall.io/pricing/",
+        "note\r": "\"prior-survey label: access=plan_gated, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "2eb16a4f68bf",
+        "platform": "Aircall",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": true,
+          "composio_catalog_slug": "cal",
+          "composio_catalog_name": "Cal",
+          "composio_managed_auth_schemes": [
+            "OAUTH2"
+          ],
+          "nango_slug": "aircall",
+          "nango_auth_mode": "OAUTH2"
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://dashboard.aircall.io/oauth/authorize",
+          "token_endpoint": "https://api.aircall.io/v1/oauth/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes": [
+            "public_api"
+          ]
+        },
+        "acquisition": {
+          "path": "relationship",
+          "status": "outreach_queued",
+          "blocked_reason": null,
+          "human_action_required": "A human must submit the Technology Partner Program application at https://aircall.io/partners/technology/signup/ and complete Aircall's approval process. After approval, request/configure a public OAuth app with redirect URI https://backend.composio.dev/api/v1/auth-apps/add, then provide the resulting client ID and client secret to Composio.",
+          "form_draft": null,
+          "outreach_draft": {
+            "contact_route": "Aircall Technology Partner Program signup form",
+            "url": "https://aircall.io/partners/technology/signup/",
+            "subject": "Technology Partner Program application and public OAuth app request",
+            "body": "Hello Aircall Technology Partner team,\n\nComposio would like to join the Aircall Technology Partner Program and obtain a public OAuth app.\n\nComposio (https://composio.dev) provides secure, managed integrations that let AI agents take authorized actions across business applications. We plan to expose Aircall's REST API to multiple Composio customers through a multi-tenant OAuth integration.\n\nPlease configure the OAuth app with this HTTPS redirect URI: https://backend.composio.dev/api/v1/auth-apps/add\n\nOur contact email is support@composio.dev. Please let us know the next steps for approval and OAuth credential issuance.\n\nThank you,\nComposio Team"
+          },
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "cal",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "scopes": "public_api"
+          }
+        },
+        "verification": {
+          "method": "documentation_and_catalog_probe",
+          "result": "No client credentials obtained; Aircall documentation states public OAuth apps require the Technology Partner Program and review.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://developer.aircall.io/docs/oauth",
+          "https://developer.aircall.io/docs/public-vs-private-app",
+          "https://aircall.io/partners/technology/signup/",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://backend.composio.dev/api/v3/toolkits/cal",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.96,
+        "notes": null,
+        "created_at": "2026-09-08T23:19:14.779Z",
+        "completed_at": "2026-09-08T23:23:31.945Z",
+        "alternatives": [
+          {
+            "scheme": "API_KEY",
+            "path": "none_needed",
+            "availability": "Private App only, single Aircall account; not suitable for a multi-tenant public connector."
+          }
+        ]
+      },
+      "seconds": 261
+    },
+    {
+      "row": {
+        "platform": "Klaviyo",
+        "expected_scheme": "API_KEY",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://developers.klaviyo.com/en/docs/get_started",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "2f8550ef3a6f",
+        "platform": "Klaviyo",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "toolkit": "klaviyo"
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://mcp.klaviyo.com/authorize",
+          "token_endpoint": "https://mcp.klaviyo.com/token",
+          "registration_endpoint": "https://mcp.klaviyo.com/register",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "redirect_uri": "https://backend.composio.dev/api/v1/auth-apps/add"
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "credentials_obtained",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "klaviyo",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "client_id": "REDACTED",
+            "client_secret": "REDACTED"
+          }
+        },
+        "verification": {
+          "method": "authorize_endpoint_probe",
+          "result": "accepted: consent or login page rendered (HTTP 200)",
+          "invalid_client": false,
+          "checked_at": null,
+          "checked_url": "https://mcp.klaviyo.com/authorize?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-90d14ien&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "API_KEY",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://mcp.klaviyo.com/.well-known/oauth-authorization-server",
+          "https://mcp.klaviyo.com/authorize?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-90d14ien&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM",
+          "https://backend.composio.dev/api/v3/toolkits/klaviyo",
+          "https://mcp.klaviyo.com/.well-known/oauth-protected-resource",
+          "https://mcp.klaviyo.com/register",
+          "https://mcp.klaviyo.com/authorize?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-90d14ien&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        ],
+        "confidence": 0.98,
+        "notes": null,
+        "created_at": "2026-09-08T23:20:14.894Z",
+        "completed_at": "2026-09-08T23:21:30.263Z",
+        "alternatives": [
+          {
+            "scheme": "API_KEY",
+            "path": "none_needed",
+            "note": "Klaviyo also supports user-supplied generic API keys."
+          }
+        ]
+      },
+      "seconds": 76
+    },
+    {
+      "row": {
+        "platform": "GoHighLevel",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "form",
+        "coarse": "human",
+        "source": "https://help.gohighlevel.com/support/solutions/articles/48001060529-highlevel-api-documentation",
+        "note\r": "\"prior-survey label: access=plan_gated, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "8e6bb674bbf4",
+        "platform": "GoHighLevel",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_toolkit": "highlevel",
+          "composio_auth_scheme": "OAUTH2",
+          "required_credential_fields": [
+            "client_id",
+            "client_secret"
+          ],
+          "connect_time_fields": [
+            "user_type"
+          ]
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://marketplace.gohighlevel.com/",
+          "token_endpoint": "https://services.leadconnectorhq.com/oauth/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": []
+        },
+        "acquisition": {
+          "path": "self_serve",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "Create or provide an existing HighLevel operator account, then sign in at https://marketplace.gohighlevel.com/login and register an OAuth app in the Marketplace/Developer area using the supplied Composio application details and redirect URI. The current run may not create a new account.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": null,
+        "verification": {
+          "method": "not_run",
+          "result": "No client credentials obtained because the operator-account check reported that no account exists; OAuth verification cannot run without a client_id.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": null,
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://marketplace.gohighlevel.com/docs/Authorization/OAuth2.0/",
+          "https://marketplace.gohighlevel.com/login",
+          "https://help.gohighlevel.com/support/solutions/articles/155000000136-how-to-get-started-with-the-developer-s-marketplace",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://backend.composio.dev/api/v3/toolkits/highlevel",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0,
+        "notes": "HighLevel publishes a self-serve OAuth app registration workflow in its developer documentation. The documentation confirms client ID/secret registration and the token endpoint https://services.leadconnectorhq.com/oauth/token. No RFC 7591 registration endpoint was discovered. Applicant details to use after account access: name Composio; homepage https://composio.dev; contact support@composio.dev; redirect https://backend.composio.dev/api/v1/auth-apps/add; privacy https://composio.dev/privacy; description Composio gives AI agents authenticated access to SaaS tools on behalf of end users.",
+        "created_at": "2026-09-08T23:21:31.041Z",
+        "completed_at": "2026-09-08T23:23:31.661Z"
+      },
+      "seconds": 124
+    },
+    {
+      "row": {
+        "platform": "Amazon Selling Partner",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "form",
+        "coarse": "human",
+        "source": "https://sell.amazon.com/developers",
+        "note\r": "\"prior-survey label: access=self_serve_paid, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "2d688360c0fe",
+        "platform": "Amazon Selling Partner",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_catalog_found": false,
+          "nango_slug": "amazon-selling-partner",
+          "nango_auth_mode": "OAUTH2"
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://${connectionConfig.domain}/apps/authorize/consent",
+          "token_endpoint": "https://api.amazon.com/auth/o2/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": []
+        },
+        "acquisition": {
+          "path": "self_serve",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "Use an existing Amazon developer/Solution Provider Portal account to register the Composio SP-API OAuth application. Start at https://developer.amazon.com/docs/app-submission-api/auth.html and follow Create a security profile / Web Settings, or use https://developer.amazonservices.com/register. Enter application name Composio, homepage https://composio.dev, contact email support@composio.dev, redirect URI https://backend.composio.dev/api/v1/auth-apps/add, privacy policy https://composio.dev/privacy, and the supplied description. Then provide the resulting Login with Amazon client ID and client secret for connector configuration.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "amazon-selling-partner",
+          "auth_scheme": "OAUTH2",
+          "credentials": {}
+        },
+        "verification": {
+          "method": "not_run",
+          "result": "No client was obtained because no existing operator account was available and account creation is prohibited.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "UNKNOWN",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "disagree"
+        },
+        "evidence": [
+          "https://developer.amazon.com/docs/app-submission-api/auth.html",
+          "https://developer-docs.amazon/sp-api/docs/onboarding-step-6-set-up-the-authorization-workflow",
+          "https://nango.dev/docs/api-integrations/amazon-selling-partner/how-to-register-your-own-amazon-selling-partner-api-oauth-app",
+          "https://developer.amazonservices.com/register",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.91,
+        "notes": null,
+        "created_at": "2026-09-08T23:23:35.474Z",
+        "completed_at": "2026-09-08T23:24:19.448Z",
+        "alternatives": [
+          {
+            "scheme": "S2S_OAUTH2",
+            "note": "SP-API also requires AWS IAM credentials and an application role for API signing, but the user-delegated credential path is OAuth2 via Login with Amazon."
+          }
+        ]
+      },
+      "seconds": 44
+    },
+    {
+      "row": {
+        "platform": "Ecwid",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "form",
+        "coarse": "human",
+        "source": "https://docs.ecwid.com/get-started/make-your-first-api-request",
+        "note\r": "\"prior-survey label: access=plan_gated, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "238adbebdd40",
+        "platform": "Ecwid",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_catalog_found": false,
+          "nango_registry_found": false
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://my.ecwid.com/",
+          "token_endpoint": "https://my.ecwid.com/",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes": [
+            "read_store_profile",
+            "read_catalog",
+            "update_catalog",
+            "create_catalog",
+            "read_orders",
+            "update_orders",
+            "public_storefront"
+          ],
+          "notes": "Ecwid documentation states that public apps use OAuth 2.0, while app credentials/settings are managed through the Ecwid admin app dashboard. No RFC 7591 metadata or registration endpoint was discovered."
+        },
+        "acquisition": {
+          "path": "self_serve",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "An operator must provide an existing Ecwid account with a store, then open https://my.ecwid.com/#develop-apps, create/configure the Composio public application using homepage https://composio.dev, contact email support@composio.dev, redirect URI https://backend.composio.dev/api/v1/auth-apps/add, privacy policy https://composio.dev/privacy, and the required OAuth scopes. Ecwid documentation says API access requires a store and that app management occurs in this dashboard. This run could not proceed because no stored Ecwid operator account exists and account creation is prohibited.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "ecwid",
+          "auth_scheme": "OAUTH2",
+          "credentials": {}
+        },
+        "verification": {
+          "method": "not_run",
+          "result": "No client was obtained; OAuth verification could not be performed.",
+          "invalid_client": null,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "UNKNOWN",
+          "nango_auth_mode": "UNKNOWN",
+          "agreement": "disagree"
+        },
+        "evidence": [
+          "https://docs.ecwid.com/get-started/set-up-your-dev-environment-in-ecwid.md",
+          "https://docs.ecwid.com/develop-apps/app-settings.md",
+          "https://my.ecwid.com/#develop-apps",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://api.firecrawl.dev/v1/search"
+        ],
+        "confidence": 0.86,
+        "notes": null,
+        "created_at": "2026-09-08T23:23:35.476Z",
+        "completed_at": "2026-09-08T23:25:06.064Z"
+      },
+      "seconds": 92
+    },
+    {
+      "row": {
+        "platform": "Apify",
+        "expected_scheme": "BEARER_TOKEN",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://docs.apify.com/api/v2",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "434a9e75e9fa",
+        "platform": "Apify",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_toolkit": "apify",
+          "composio_auth_schemes": [
+            "API_KEY"
+          ],
+          "connect_time_fields": [
+            "generic_api_key"
+          ],
+          "nango_auth_mode": "API_KEY"
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://console.apify.com/authorize/oauth",
+          "token_endpoint": "https://console-backend.apify.com/oauth/apps/token",
+          "registration_endpoint": "https://console-backend.apify.com/oauth/apps",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes_supported": [
+            "full_api_access"
+          ]
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "credentials_obtained",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "apify",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "client_id": "REDACTED",
+            "client_secret": "REDACTED",
+            "scopes": "full_api_access"
+          }
+        },
+        "verification": {
+          "method": "authorize_endpoint_probe",
+          "result": "accepted: consent or login page rendered (HTTP 200)",
+          "invalid_client": false,
+          "checked_at": null,
+          "checked_url": "https://console.apify.com/authorize/oauth?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-uwpea6l2&scope=full_api_access&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cP&code_challenge_method=S256"
+        },
+        "oracles": {
+          "composio_scheme": "API_KEY",
+          "nango_auth_mode": "API_KEY",
+          "agreement": "disagree"
+        },
+        "evidence": [
+          "https://console-backend.apify.com/.well-known/oauth-authorization-server",
+          "https://console-backend.apify.com/oauth/apps",
+          "https://console.apify.com/authorize/oauth",
+          "https://backend.composio.dev/api/v3/toolkits/apify",
+          "https://mcp.apify.com/.well-known/oauth-protected-resource",
+          "https://console.apify.com/authorize/oauth?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-uwpea6l2&scope=full_api_access&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        ],
+        "confidence": 0.98,
+        "notes": null,
+        "created_at": "2026-09-08T23:24:19.591Z",
+        "completed_at": "2026-09-08T23:24:53.508Z"
+      },
+      "seconds": 36
+    },
+    {
+      "row": {
+        "platform": "Ahrefs",
+        "expected_scheme": "API_KEY",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://docs.ahrefs.com/en/api/docs/introduction",
+        "note\r": "\"prior-survey label: access=plan_gated, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "119ec489b2a7",
+        "platform": "Ahrefs",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_toolkit": "ahrefs",
+          "composio_auth_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "credential_fields": [
+            "client_id",
+            "client_secret"
+          ],
+          "connect_time_fields": [
+            "generic_api_key"
+          ]
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://app.ahrefs.com/web/oauth/authorize",
+          "token_endpoint": "https://ahrefs.com/oauth/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes": [
+            "apiv3-integration-apps"
+          ],
+          "flow": "Authorization Code with PKCE"
+        },
+        "acquisition": {
+          "path": "form",
+          "status": "blocked",
+          "blocked_reason": "application_form_required",
+          "human_action_required": "Open https://docs.ahrefs.com/en/ahrefs-connect/docs/how-to-apply and submit Ahrefs' Connect application form with the Composio description, homepage, contact email, intended Ahrefs-data use, and redirect URI https://backend.composio.dev/api/v1/auth-apps/add. Ahrefs must confirm eligibility and issue access to Account settings \u2192 Ahrefs Connect before client_id/client_secret can be copied. The previously documented form URL https://ahrefs.com/connect currently returned 404, so use the current form link provided by Ahrefs or contact support@ahrefs.com for the application route.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": null,
+        "verification": {
+          "method": "documentation_and_endpoint_evidence",
+          "result": "No client credentials obtained; Ahrefs documentation requires an eligibility application and subsequent approval before credentials appear in Account settings \u2192 Ahrefs Connect.",
+          "invalid_client": null,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": null,
+          "nango_auth_mode": null,
+          "agreement": "no_oracle"
+        },
+        "evidence": [
+          "https://backend.composio.dev/api/v3/toolkits/ahrefs"
+        ],
+        "confidence": 0.97,
+        "notes": null,
+        "created_at": "2026-09-08T23:32:55.986Z",
+        "completed_at": "2026-09-08T23:35:18.264Z",
+        "outreach_draft": {
+          "to": "support@ahrefs.com",
+          "subject": "Ahrefs Connect application for Composio",
+          "body": "Hello Ahrefs Connect team,\n\nWe\u2019d like to apply for Ahrefs Connect access for Composio. Composio gives AI agents authenticated access to SaaS tools on behalf of end users.\n\nHomepage: https://composio.dev\nPrivacy policy: https://composio.dev/privacy\nContact: support@composio.dev\nOAuth redirect URI: https://backend.composio.dev/api/v1/auth-apps/add\n\nWe plan to let end users authorize Composio to access Ahrefs data through OAuth 2.0 Authorization Code with PKCE. Please share the current application form and the eligibility, staging, and production activation steps for a new integration.\n\nBest,\nComposio"
+        },
+        "alternatives": [
+          {
+            "scheme": "API_KEY",
+            "path": "none_needed",
+            "note": "Composio catalog lists API_KEY as an alternative, but the requested user-delegated OAuth route is OAUTH2."
+          }
+        ]
+      },
+      "seconds": 144
+    },
+    {
+      "row": {
+        "platform": "Cloudflare",
+        "expected_scheme": "BEARER_TOKEN",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://developers.cloudflare.com/agents/model-context-protocol/cloudflare/servers-for-cloudflare/",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "5268d1347621",
+        "platform": "Cloudflare",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_lookup": {
+            "toolkit": "cloudflare",
+            "auth_schemes": [
+              "API_KEY"
+            ],
+            "connect_time_fields": [
+              "generic_api_key",
+              "generic_id"
+            ]
+          },
+          "nango": {
+            "auth_mode": "API_KEY",
+            "docs": "https://nango.dev/docs/api-integrations/cloudflare"
+          }
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://mcp.cloudflare.com/authorize",
+          "token_endpoint": "https://mcp.cloudflare.com/token",
+          "registration_endpoint": "https://mcp.cloudflare.com/register",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "redirect_uri": "https://backend.composio.dev/api/v1/auth-apps/add",
+          "token_endpoint_auth_method": "client_secret_post"
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "credentials_obtained",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "cloudflare",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "client_id": "REDACTED",
+            "client_secret": "REDACTED",
+            "scopes": ""
+          }
+        },
+        "verification": {
+          "method": "authorize_endpoint_probe",
+          "result": "accepted: consent or login page rendered (HTTP 200)",
+          "invalid_client": false,
+          "checked_at": null,
+          "checked_url": "https://mcp.cloudflare.com/authorize?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-y8raj4pc&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        },
+        "oracles": {
+          "composio_scheme": "API_KEY",
+          "nango_auth_mode": "API_KEY",
+          "agreement": "disagree"
+        },
+        "evidence": [
+          "https://backend.composio.dev/api/v3/toolkits/cloudflare",
+          "https://mcp.cloudflare.com/.well-known/oauth-protected-resource",
+          "https://mcp.cloudflare.com/.well-known/oauth-authorization-server",
+          "https://mcp.cloudflare.com/register",
+          "https://mcp.cloudflare.com/authorize?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-y8raj4pc&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        ],
+        "confidence": 0.97,
+        "notes": null,
+        "created_at": "2026-09-08T23:25:07.740Z",
+        "completed_at": "2026-09-08T23:25:44.550Z",
+        "alternatives": [
+          {
+            "scheme": "API_KEY",
+            "path": "none_needed",
+            "credentials_required": [
+              "generic_api_key",
+              "generic_id"
+            ],
+            "note": "Cloudflare's standard Composio/Nango connector uses a user-provided API key rather than a developer OAuth app."
+          }
+        ]
+      },
+      "seconds": 40
+    },
+    {
+      "row": {
+        "platform": "Airtable",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "self_serve",
+        "coarse": "human",
+        "source": "https://support.airtable.com/articles/6292134965-getting-started-with-airtable-s-web-api",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "f6843cb9c136",
+        "platform": "airtable",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": "airtable",
+          "composio_managed": true,
+          "composio_auth_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2"
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://airtable.com/oauth2/v1/authorize",
+          "token_endpoint": "https://airtable.com/oauth2/v1/token",
+          "registration_endpoint": "https://airtable.com/oauth2/v1/register",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes": "data.records:read data.records:write schema.bases:read schema.bases:write workspacesAndBases:read"
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "draft_ready",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null,
+          "attempted": true,
+          "registration_result": "Airtable's published registration endpoint returned HTTP 400: Request body does not match the expected schema. No client_id or client_secret was issued."
+        },
+        "composio_auth_config": {
+          "toolkit": "airtable",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "scopes": "data.records:read data.records:write schema.bases:read schema.bases:write workspacesAndBases:read"
+          }
+        },
+        "verification": {
+          "method": "dcr_registration",
+          "result": "not_verified_registration_refused_http_400",
+          "invalid_client": true,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "OAUTH2",
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "agree"
+        },
+        "evidence": [
+          "https://airtable.com/.well-known/oauth-authorization-server",
+          "https://backend.composio.dev/api/v3/toolkits/airtable",
+          "https://mcp.airtable.com/.well-known/oauth-protected-resource"
+        ],
+        "confidence": 0.84,
+        "notes": null,
+        "created_at": "2026-09-08T23:32:55.986Z",
+        "completed_at": "2026-09-08T23:34:15.871Z",
+        "human_action_required": "Review Airtable's OAuth app-registration requirements at https://nango.dev/docs/api-integrations/airtable/how-to-register-your-own-airtable-api-oauth-app, then register the Composio OAuth app with redirect URI https://backend.composio.dev/api/v1/auth-apps/add and supply the issued client_id and client_secret."
+      },
+      "seconds": 80
+    },
+    {
+      "row": {
+        "platform": "Smartsheet",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "form",
+        "coarse": "human",
+        "source": "https://developers.smartsheet.com/api/smartsheet/introduction",
+        "note\r": "\"prior-survey label: access=plan_gated, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "fd42a8dab594",
+        "platform": "Smartsheet",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false
+        },
+        "auth": {
+          "scheme": "OAUTH2",
+          "alternatives": [],
+          "authorization_endpoint": "https://app.smartsheet.com/b/authorize",
+          "token_endpoint": "https://api.smartsheet.com/2.0/token",
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes_supported": [
+            "READ_SHEETS",
+            "CREATE_SHEETS",
+            "WRITE_SHEETS",
+            "DELETE_SHEETS",
+            "ADMIN_SHEETS",
+            "ADMIN_WORKSPACES",
+            "ADMIN_USERS",
+            "READ_SIGHTS",
+            "CREATE_SIGHTS",
+            "DELETE_SHEETS",
+            "SHARE_SHEETS",
+            "SHARE_SIGHTS"
+          ]
+        },
+        "acquisition": {
+          "path": "self_serve",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "Create or provide an existing Smartsheet operator account, then use the Smartsheet OAuth-app registration flow described at https://nango.dev/docs/api-integrations/smartsheet/how-to-register-your-own-smartsheet-api-oauth-app. Register an OAuth 2.0 app with homepage https://composio.dev, contact support@composio.dev, redirect URI https://backend.composio.dev/api/v1/auth-apps/add, privacy policy https://composio.dev/privacy, and the supplied Composio description; return the client ID and client secret for verification.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "smartsheet",
+          "auth_scheme": "OAUTH2",
+          "credentials": {}
+        },
+        "verification": {
+          "method": "not_run",
+          "result": "No client credentials obtained because no operator account exists; RFC 7591 registration endpoint is not published.",
+          "invalid_client": null,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": null,
+          "nango_auth_mode": "OAUTH2",
+          "agreement": "no_oracle"
+        },
+        "evidence": [
+          "https://mcp.smartsheet.com/.well-known/oauth-authorization-server",
+          "https://nango.dev/docs/api-integrations/smartsheet/how-to-register-your-own-smartsheet-api-oauth-app",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500",
+          "https://mcp.smartsheet.com/.well-known/oauth-protected-resource"
+        ],
+        "confidence": 0.88,
+        "notes": null,
+        "created_at": "2026-09-08T23:34:16.149Z",
+        "completed_at": "2026-09-08T23:35:41.196Z",
+        "alternatives": []
+      },
+      "seconds": 88
+    },
+    {
+      "row": {
+        "platform": "Binance",
+        "expected_scheme": "API_KEY",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://developers.binance.com/en/docs/",
+        "note\r": "\"prior-survey label: access=self_serve_free, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "b01c60cc747e",
+        "platform": "Binance",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "finding": "Binance is not present in Composio's live catalog. No OAuth authorization-server or RFC 7591 registration metadata was discovered. Binance access is account/API-key based rather than a third-party OAuth developer-app flow."
+        },
+        "auth": {
+          "scheme": "API_KEY",
+          "alternatives": [],
+          "authorization_endpoint": null,
+          "token_endpoint": null,
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": []
+        },
+        "acquisition": {
+          "path": "none_needed",
+          "status": "no_app_required",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "binance",
+          "auth_scheme": "API_KEY",
+          "credentials": {}
+        },
+        "verification": {
+          "method": "metadata_discovery",
+          "result": "No authorization_endpoint, token_endpoint, or registration_endpoint found; API-key path requires the end user to create and provide credentials.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": null,
+          "nango_auth_mode": null,
+          "agreement": "no_oracle"
+        },
+        "evidence": [
+          "https://developers.binance.com/docs/binance-spot-api-docs/faqs/api-key-faq",
+          "https://www.binance.com/en/support/faq/how-to-create-an-api-key-on-binance-360002502072",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500"
+        ],
+        "confidence": 0.82,
+        "notes": null,
+        "created_at": "2026-09-08T23:35:20.338Z",
+        "completed_at": "2026-09-08T23:36:37.598Z",
+        "alternatives": [
+          {
+            "scheme": "S2S_OAUTH2",
+            "status": "not_found",
+            "note": "No OAuth metadata discovered for Binance."
+          }
+        ],
+        "human_action_required": "The Binance account owner must create an API key and secret in Binance account settings, then provide those values to the connector. Restrict permissions to the connector's required operations and do not enable withdrawals unless explicitly needed."
+      },
+      "seconds": 80
+    },
+    {
+      "row": {
+        "platform": "Paygent Connect",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "relationship",
+        "coarse": "human",
+        "source": "https://docs.connectpay.com/docs/",
+        "note\r": "\"prior-survey label: access=approval_required, verdict=build_with_caveats\"\r"
+      },
+      "packet": {
+        "run_id": "ee58d5592a4b",
+        "platform": "Paygent Connect",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_catalog_found": false,
+          "nango_registry_found": false
+        },
+        "auth": {
+          "scheme": "UNKNOWN",
+          "alternatives": [],
+          "authorization_endpoint": null,
+          "token_endpoint": null,
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "supports_dcr": false
+        },
+        "acquisition": {
+          "path": "not_buildable",
+          "status": "blocked",
+          "blocked_reason": "needs_operator_account",
+          "human_action_required": "A human operator must provide or provision an operator account for the official Paygent Connect developer portal, then supply the portal URL so an OAuth application can be registered with homepage https://composio.dev and redirect URI https://backend.composio.dev/api/v1/auth-apps/add. No official portal or registration page was discoverable, and this run is not permitted to create a new account.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": null,
+        "verification": {
+          "method": "metadata_discovery",
+          "result": "No RFC 9728, RFC 8414, or OIDC metadata found; no authorization, token, or dynamic-registration endpoint discovered.",
+          "invalid_client": null,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": null,
+          "nango_auth_mode": null,
+          "agreement": "no_oracle"
+        },
+        "evidence": [
+          "https://paygentconnect",
+          "https://mcp.paygentconnect.com",
+          "https://mcp.paygentconnect.app",
+          "https://mcp.paygentconnect.io",
+          "https://mcp.paygentconnect.dev",
+          "https://mcp.paygentconnect.ai",
+          "https://mcp.paygentconnect.co",
+          "https://api.paygentconnect",
+          "https://auth.paygentconnect",
+          "https://backend.composio.dev/api/v3/toolkits?limit=500"
+        ],
+        "confidence": 0.97,
+        "notes": null,
+        "created_at": "2026-09-08T23:35:44.442Z",
+        "completed_at": "2026-09-08T23:36:21.458Z"
+      },
+      "seconds": 40
+    },
+    {
+      "row": {
+        "platform": "Devin",
+        "expected_scheme": "API_KEY",
+        "expected_path": "none_needed",
+        "coarse": "none",
+        "source": "https://docs.devin.ai/api-reference/authentication",
+        "note\r": "\"prior-survey label: access=self_serve_paid, verdict=build_now\"\r"
+      },
+      "packet": {
+        "run_id": "fd99e5d29c2f",
+        "platform": "Devin",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "finding": "Devin has no OAuth authorization server or developer-app registration flow for this integration. Its documented third-party authentication is user-provided API credentials: preferably a v3 Service User API Key (cog_ prefix), or a Personal Access Token. Legacy apk_ keys are deprecated."
+        },
+        "auth": {
+          "scheme": "API_KEY",
+          "alternatives": [],
+          "authorization_endpoint": null,
+          "token_endpoint": null,
+          "registration_endpoint": null,
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "credential_type": "service_user_api_key"
+        },
+        "acquisition": {
+          "path": "none_needed",
+          "status": "no_app_required",
+          "blocked_reason": null,
+          "human_action_required": "A Devin organization administrator must open https://app.devin.ai/settings/service-users, create or select a service user, assign the least-privilege role needed by the connector, generate a cog_-prefixed Service User API Key, and provide that key securely. If Service Users is unavailable, a Devin user can instead create a PAT from the account's Personal Access Tokens settings and provide it securely.",
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "devin",
+          "auth_scheme": "API_KEY",
+          "credentials": {
+            "api_key": "REDACTED"
+          }
+        },
+        "verification": {
+          "method": "documentation",
+          "result": "The fetched Devin authentication documentation specifies Bearer cog_ credentials for v3 API requests; no client_id exists to verify.",
+          "invalid_client": false,
+          "checked_at": null
+        },
+        "oracles": {
+          "composio_scheme": "API_KEY",
+          "nango_auth_mode": "API_KEY",
+          "agreement": "agree"
+        },
+        "evidence": [
+          {
+            "url": "https://docs.devin.ai/api-reference/authentication",
+            "claim": "Devin documents Service User API Keys and Personal Access Tokens, says credentials use cog_ prefixes, and links the Service Users/API Keys settings paths."
+          },
+          {
+            "url": "https://nango.dev/docs/integrations/all/devin",
+            "claim": "Nango independently classifies Devin authentication as API Key and notes v3 service-user API keys or PATs are the recommended credentials; no OAuth registration URL is listed."
+          },
+          "https://backend.composio.dev/api/v3/toolkits?limit=500"
+        ],
+        "confidence": 0.98,
+        "notes": null,
+        "created_at": "2026-09-08T23:37:03.927Z",
+        "completed_at": "2026-09-08T23:38:12.343Z"
+      },
+      "seconds": 72
+    },
+    {
+      "row": {
+        "platform": "Consensus",
+        "expected_scheme": "OAUTH2",
+        "expected_path": "relationship",
+        "coarse": "human",
+        "source": "https://consensus.app/home/api/",
+        "note\r": "\"prior-survey label: access=approval_required, verdict=build_with_caveats\""
+      },
+      "packet": {
+        "run_id": "63686d568375",
+        "platform": "Consensus",
+        "resolved": {
+          "origin": null,
+          "homepage": null,
+          "developer_docs": null,
+          "registration_url": null,
+          "already_in_composio": false,
+          "composio_slug": null,
+          "composio_managed": false,
+          "composio_toolkit": "consensus",
+          "composio_auth_schemes": [
+            "API_KEY"
+          ],
+          "composio_connect_time_fields": [
+            "generic_api_key"
+          ]
+        },
+        "auth": {
+          "scheme": "DCR_OAUTH",
+          "alternatives": [],
+          "authorization_endpoint": "https://consensus.app/oauth/authorize/",
+          "token_endpoint": "https://consensus.app/oauth/token/",
+          "registration_endpoint": "https://consensus.app/oauth/register/",
+          "scopes_requested": [],
+          "connect_time_fields": [],
+          "scopes_supported": [
+            "search"
+          ]
+        },
+        "acquisition": {
+          "path": "dcr",
+          "status": "credentials_obtained",
+          "blocked_reason": null,
+          "human_action_required": null,
+          "form_draft": null,
+          "outreach_draft": null,
+          "screenshots": [],
+          "live_view_url": null
+        },
+        "composio_auth_config": {
+          "toolkit": "consensus",
+          "auth_scheme": "OAUTH2",
+          "credentials": {
+            "client_id": "REDACTED",
+            "client_secret": null,
+            "scopes": "search"
+          }
+        },
+        "verification": {
+          "method": "authorize_endpoint_probe",
+          "result": "accepted: redirected to consent/login (HTTP 302)",
+          "invalid_client": false,
+          "checked_at": null,
+          "checked_url": "https://consensus.app/oauth/authorize/?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-nrh8bsj2&scope=search&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cS256&code_challenge_method=S256"
+        },
+        "oracles": {
+          "composio_scheme": "API_KEY",
+          "nango_auth_mode": null,
+          "agreement": "disagree"
+        },
+        "evidence": [
+          "https://consensus.app/.well-known/oauth-authorization-server",
+          "https://consensus.app/oauth/register/",
+          "https://consensus.app/oauth/authorize/",
+          "https://backend.composio.dev/api/v3/toolkits/consensus",
+          "https://mcp.consensus.app/.well-known/oauth-protected-resource",
+          "https://consensus.app/oauth/authorize/?response_type=code&client_id=REDACTED&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd&state=verify-nrh8bsj2&scope=search&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256"
+        ],
+        "confidence": 0.98,
+        "notes": "Consensus issued a public OAuth client with no client secret. The registration response explicitly reported client_secret: null; this is valid for the registered public client.",
+        "created_at": "2026-09-08T23:37:03.927Z",
+        "completed_at": "2026-09-08T23:37:39.875Z"
+      },
+      "seconds": 36
+    }
+  ]
+}
